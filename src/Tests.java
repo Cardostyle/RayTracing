@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Tests {
 
     @Test
-    void creatingRay(){
+    void helloWorld(){
+        Point test=new Point(1,2,3);
+        assertEquals(1,test.getX());
+        assertEquals(2,test.getY());
+        assertEquals(2,test.getZ());
 
-        assertEquals(1,1);
-        assertEquals(1,1);
     }
 }
