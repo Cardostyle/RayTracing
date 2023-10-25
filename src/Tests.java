@@ -10,7 +10,7 @@ public class Tests {
         Point point1 = new Point(3, 2, 1);
         Point point2 = new Point(5, 6, 7);
         Vector result = VectorMath.subtraction(point1, point2);
-        assertEquals(new Vector(-2.0, -4.0, -6.0), result);
+        assertTrue(VectorMath.isEqual(new Vector(-2.0, -4.0, -6.0), result));
     }
 
     @Test
@@ -18,7 +18,7 @@ public class Tests {
         Point point = new Point(3.0, -2.0, 5.0);
         Vector vector = new Vector(-2.0, 3.0, 1.0);
         Point result = VectorMath.addition(point, vector);
-        assertEquals(new Point(1.0, 1.0, 6.0), result);
+        assertTrue(VectorMath.isEqual(new Point(1.0, 1.0, 6.0), result));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class Tests {
         Point point = new Point(3, 2, 1);
         Vector vector = new Vector(5, 6, 7);
         Point result = VectorMath.subtraction(point, vector);
-        assertEquals(new Point(-2.0, -4.0, -6.0), result);
+        assertTrue(VectorMath.isEqual(new Point(-2.0, -4.0, -6.0), result));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class Tests {
         Point point = new Point(0.1, 0.2, 0.3);
         double value = 0.3;
         Point result = VectorMath.multiplication(point, value);
-        assertEquals(new Point(0.03, 0.06, 0.09), result);
+        assertTrue(VectorMath.isEqual(new Point(0.03, 0.06, 0.09), result));
     }
     @Test
     public void testIllegalDivisionByZeroForPoints() {
@@ -68,7 +68,7 @@ public class Tests {
     public void testNegatingAVector() {
         Vector vector = new Vector(0.1, 2.3, 9.6);
         Vector result = VectorMath.negate(vector);
-        assertEquals(new Vector(-0.1, -2.3, -9.6), result);
+        assertTrue(VectorMath.isEqual(new Vector(-0.1, -2.3, -9.6), result));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class Tests {
         Vector vector1 = new Vector(3.0, -2.0, 5.0);
         Vector vector2 = new Vector(-2.0, 3.0, 1.0);
         Vector result = VectorMath.addition(vector1, vector2);
-        assertEquals(new Vector(1.0, 1.0, 6.0), result);
+        assertTrue(VectorMath.isEqual(new Vector(1.0, 1.0, 6.0), result));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class Tests {
         Vector vector1 = new Vector(3, 2, 1);
         Vector vector2 = new Vector(5, 6, 7);
         Vector result = VectorMath.subtraction(vector1, vector2);
-        assertEquals(new Vector(-2.0, -4.0, -6.0), result);
+        assertTrue(VectorMath.isEqual(new Vector(-2.0, -4.0, -6.0), result));
     }
 
 }
