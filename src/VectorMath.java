@@ -10,7 +10,7 @@ public class VectorMath {
         return new Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY(), v1.getZ() - v2.getZ());
     }
 
-    public static Vector negation(Vector v1) {
+    public static Vector negate(Vector v1) {
         return new Vector(-v1.getX(), -v1.getY(), -v1.getZ());
     }
     public static Vector multiplication(Vector v1, double n1) {
