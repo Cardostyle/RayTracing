@@ -1,6 +1,6 @@
 public class Point {
 
-    private final int w=1;
+    private final double w=0;
     private double x;
     private double y;
     private double z;
@@ -21,5 +21,9 @@ public class Point {
 
     public double getZ() {
         return z;
+    }
+
+    public double getW() {
+        return w;
     }
 }

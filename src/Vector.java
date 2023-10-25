@@ -22,4 +22,8 @@ public class Vector {
     public double getZ() {
         return z;
     }
+
+    public double getW() {
+        return w;
+    }
 }
