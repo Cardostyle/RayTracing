@@ -57,4 +57,18 @@ public class Color {
     public double getRed() {
         return red;
     }
+
+    public int toInt() {
+        int r = (int) Math.round(red * 255);
+        int g = (int) Math.round(green * 255);
+        int b = (int) Math.round(blue * 255);
+        return (r << 16) | (g << 8) | b;
+    }
+
+    public static Color fromInt(int intRGB) {
+        int r = (intRGB >> 16) & 0xFF;
+        int g = (intRGB >> 8) & 0xFF;
+        int b = intRGB & 0xFF;
+        return new Color(r / 255.0, g / 255.0, b / 255.0);
+    }
 }

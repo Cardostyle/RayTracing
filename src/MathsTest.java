@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Tests {
+public class MathsTest {
 
     private static final double DELTA = 1e-9; // Toleranz für Gleitkommazahlen
 
