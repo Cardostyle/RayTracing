@@ -10,7 +10,7 @@ public class Strahl {
 
     public Strahl(Point origin, Point destination){
         this.origin=origin;
-        this.vector=VectorMath.normalized(VectorMath.subtraction(origin,destination));
+        this.vector=VectorMath.normalized(VectorMath.subtraction(destination,origin));
     }
 
     public Point getOrigin() {
