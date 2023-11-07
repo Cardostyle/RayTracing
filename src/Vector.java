@@ -1,6 +1,6 @@
 public class Vector {
 
-    private final double w=0;
+    private double w;
     private double x;
     private double y;
     private double z;
@@ -9,6 +9,14 @@ public class Vector {
         this.x=x;
         this.y=y;
         this.z=z;
+        this.w=0;
+    }
+
+    public Vector(double x,double y,double z, double w){
+        this.x=x;
+        this.y=y;
+        this.z=z;
+        this.w=w;
     }
 
     public double getX() {

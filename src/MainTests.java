@@ -1,12 +1,12 @@
 public class MainTests {
     public static void main(String[] args) {
-        int width = 5000;
-        int height = 5000;
-        Canvas canvas1 = new Canvas(width, height, "Farben1.png");
-        Canvas canvas2 = new Canvas(width, height, "Farben2.png");
-        Canvas canvas3 = new Canvas(width, height, "Farben3.png");
+        int width = 900;
+        int height = 600;
+        Canvas canvas1 = new Canvas(width, height, "pic1.png");
+        Canvas canvas2 = new Canvas(width, height, "pic2.png");
+        Canvas canvas3 = new Canvas(width, height, "pic3.png");
 
-        Point eye = new Point(0, 0, -1000);  // Origin des Strahls (Auge)
+        Point eye = new Point(0, 0, -100);  // Origin des Strahls (Auge)
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -21,7 +21,7 @@ public class MainTests {
 
                 // Länge des Vektors vom Auge zum Pixel
                 double length = VectorMath.magnitude(VectorMath.subtraction(pixel, eye));
-                Color color3 = new Color(length / 5000, length / 5000, length / 5000);  // Skalierungsfaktor
+                Color color3 = new Color(length / 1000, length / 1000, length / 1000);  // Skalierungsfaktor
 
                 canvas1.setPixel(x, y, color1);
                 canvas2.setPixel(x, y, color2);
