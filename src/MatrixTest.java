@@ -385,8 +385,9 @@ public class MatrixTest {
         assertEquals(105, cofactor32, 1e-9);
 
         Matrix actualInverse = m.inverse();
-        assertEquals(-160/532.0, actualInverse.get(2, 1), 1e-9);
-        assertEquals(105/532.0, actualInverse.get(1, 2), 1e-9);
+        System.out.println(actualInverse);
+        assertEquals(-160/532.0, actualInverse.get(3, 2), 1e-9);
+        assertEquals(105/532.0, actualInverse.get(2, 3), 1e-9);
 
         assertEquals(actualInverse, expectedInverse);
     }

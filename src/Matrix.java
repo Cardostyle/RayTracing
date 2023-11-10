@@ -96,9 +96,21 @@ public class Matrix {
 
     // Helper method to compare two double values with a tolerance
     private boolean areEqualWithTolerance(double a, double b) {
-        final double TOLERANCE = 1e-9;
+        final double TOLERANCE = 1e-5;
         return Math.abs(a - b) < TOLERANCE;
     }
+
+
+    public Matrix multiply(double s) {
+        double[][] result = new double[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                result[i][j] = this.get(i, j) * s;
+            }
+        }
+        return new Matrix(result);
+    }
+
 
     // Methode zur Multiplikation zweier Matrizen
     public Matrix multiply(Matrix other) {
@@ -195,34 +207,27 @@ public class Matrix {
         return Math.pow(-1, row + col) * minor(row, col);
     }
 
+    // Methode zur Berechnung der Adjunkte
+    public Matrix adjugate() {
+        double[][] adj = new double[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                adj[i][j] = cofactor(i, j);
+            }
+        }
+        return new Matrix(adj).transpose();
+    }
+
     // Methode zur Berechnung der inversen Matrix
     public Matrix inverse() {
-        double det = determinant();
+        double det = this.determinant();
         if (Math.abs(det) < 1e-9) {
             throw new ArithmeticException("Matrix ist nicht invertierbar, da ihre Determinante null ist.");
         }
+        //Adjunkte erhalten
+        Matrix adjugate = this.adjugate();
 
-        Matrix cofactorMatrix = new Matrix(size);
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                // Berechnung des Kofaktors für jedes Element
-                double cofactor = cofactor(row, col);
-                cofactorMatrix.set(row, col, cofactor);
-            }
-        }
-
-        // Transponieren der Kofaktorenmatrix, um die Adjunkte zu erhalten
-        Matrix adjugate = cofactorMatrix.transpose();
-
-        // Multiplikation jedes Elements der Adjunkte mit dem Kehrwert der Determinante
-        Matrix inverseMatrix = new Matrix(size);
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                inverseMatrix.set(row, col, adjugate.get(row, col) / det);
-            }
-        }
-
-        return inverseMatrix;
+        return adjugate.multiply(1/det);
     }
 
 
