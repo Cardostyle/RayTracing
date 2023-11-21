@@ -1,5 +1,11 @@
 import java.lang.Math;
 
+/**
+ * Diese Klasse wurde in Instanzmethoden umgeschrieben und wird somit nicht mehr benutzt.
+ * Man braucht sie jedoch weiterhin für einige Tests.
+ * Die jetzigen Methoden sind in Point.java und in Vector.java
+ **/
+
 public class VectorMath {
 
     public static Vector addition(Vector v1, Vector v2) {

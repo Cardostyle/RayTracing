@@ -93,4 +93,9 @@ public class Vector {
         return false;
     }
 
+    public Vector normalize() {
+        double length = Math.sqrt(x * x + y * y + z * z);
+        return new Vector(x / length, y / length, z / length);
+    }
+
 }

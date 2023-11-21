@@ -1,14 +1,14 @@
-public class Strahl {
+public class Ray {
 
     private Point origin;
     private Vector vector;
 
-    public Strahl(Point origin, Vector vector){
+    public Ray(Point origin, Vector vector){
         this.origin=origin;
         this.vector=vector;
     }
 
-    public Strahl(Point origin, Point destination){
+    public Ray(Point origin, Point destination){
         this.origin=origin;
         this.vector=VectorMath.normalized(VectorMath.subtraction(destination,origin));
     }

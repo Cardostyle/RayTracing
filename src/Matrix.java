@@ -73,17 +73,17 @@ public class Matrix {
 
     @Override
     public boolean equals(Object o) {
-        // Null check and type check
+        // Null check und type check
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        // Cast to Matrix
+        // Cast zu Matrix
         Matrix matrix = (Matrix) o;
         // Size check
         if (this.size != matrix.size) {
             return false;
         }
-        // Element-wise check
+        // Element Gleichheit check
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (!areEqualWithTolerance(this.data[i][j], matrix.data[i][j])) {
@@ -94,7 +94,7 @@ public class Matrix {
         return true;
     }
 
-    // Helper method to compare two double values with a tolerance
+    // hilfsmethode für die Toleranz
     private boolean areEqualWithTolerance(double a, double b) {
         final double TOLERANCE = 1e-5;
         return Math.abs(a - b) < TOLERANCE;
@@ -115,7 +115,7 @@ public class Matrix {
     // Methode zur Multiplikation zweier Matrizen
     public Matrix multiply(Matrix other) {
         if (this.size != other.size) {
-            throw new IllegalArgumentException("Matrices have different sizes and cannot be multiplied.");
+            throw new IllegalArgumentException("Matrizen haben unterschiedliche Größen und können somit nicht multipliziert werden.");
         }
 
         double[][] resultData = new double[this.size][this.size];
