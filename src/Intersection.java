@@ -2,9 +2,9 @@ public class Intersection{
     private double t; //länge Punkt am Ray/Vector
     private Shape shape;
 
-    public Intersection(double t, Sphere sphere){
+    public Intersection(double t, Shape shape){
         this.t=t;
-        this.shape =sphere;
+        this.shape =shape;
     }
 
     public double getT() {

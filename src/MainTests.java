@@ -41,10 +41,10 @@ public class MainTests {
         /**Spheres**/
         int width = 900;
         int height = 600;
-        Canvas canvasDirection = new Canvas(width, height, "Sphere1.png");
-        Canvas canvasHit = new Canvas(width, height, "Sphere2.png");
-        Canvas canvasTValue = new Canvas(width, height, "Sphere3.png");
-        Canvas canvasNormal = new Canvas(width, height, "Sphere4.png");
+        Canvas canvasDirection = new Canvas(width, height, "Kugel1.png");
+        Canvas canvasHit = new Canvas(width, height, "Kugel2.png");
+        Canvas canvasTValue = new Canvas(width, height, "Kugel3.png");
+        Canvas canvasNormal = new Canvas(width, height, "Kugel4.png");
         Sphere sphere = new Sphere();
 
         Point eye = new Point(0, 0, -10);  // Ursprung des Strahls
@@ -62,9 +62,9 @@ public class MainTests {
                 // Treffer oder kein Treffer
                 Color colorHit;
                 if (intersections.count() == 0) {
-                    colorHit =new Color(0, 0, 1);
+                    colorHit =new Color(0, 1, 0);
                 }else{
-                    colorHit =new Color(1, 0.5, 0);
+                    colorHit =new Color(1, 0, 0);
                 }
 
 
