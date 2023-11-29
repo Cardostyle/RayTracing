@@ -230,5 +230,71 @@ public class Matrix {
         return adjugate.multiply(1/det);
     }
 
+    // Methode für Translation
+    public static Matrix translate(double dx, double dy, double dz) {
+        Matrix translationMatrix = new Matrix(4);
+        translationMatrix.data = new double[][]{
+                {1, 0, 0, dx},
+                {0, 1, 0, dy},
+                {0, 0, 1, dz},
+                {0, 0, 0, 1}
+        };
+        return translationMatrix;
+    }
+
+    // Methode für Skalierung
+    public static Matrix scale(double sx, double sy, double sz) {
+        Matrix scaleMatrix = new Matrix(4);
+        scaleMatrix.data = new double[][]{
+                {sx, 0, 0, 0},
+                {0, sy, 0, 0},
+                {0, 0, sz, 0},
+                {0, 0, 0, 1}
+        };
+        return scaleMatrix;
+    }
+
+    // Methode für Rotation um die X-Achse
+    public static Matrix rotateX(double angle) {
+        double cosAngle = Math.cos(angle);
+        double sinAngle = Math.sin(angle);
+        Matrix rotationMatrix = new Matrix(4);
+        rotationMatrix.data = new double[][]{
+                {1, 0, 0, 0},
+                {0, cosAngle, -sinAngle, 0},
+                {0, sinAngle, cosAngle, 0},
+                {0, 0, 0, 1}
+        };
+        return rotationMatrix;
+    }
+
+    // Methode für Rotation um die Y-Achse
+    public static Matrix rotateY(double angle) {
+        double cosAngle = Math.cos(angle);
+        double sinAngle = Math.sin(angle);
+        Matrix rotationMatrix = new Matrix(4);
+        rotationMatrix.data = new double[][]{
+                {cosAngle, 0, sinAngle, 0},
+                {0, 1, 0, 0},
+                {-sinAngle, 0, cosAngle, 0},
+                {0, 0, 0, 1}
+        };
+        return rotationMatrix;
+    }
+
+    // Methode für Rotation um die Z-Achse
+    public static Matrix rotateZ(double angle) {
+        double cosAngle = Math.cos(angle);
+        double sinAngle = Math.sin(angle);
+        Matrix rotationMatrix = new Matrix(4);
+        rotationMatrix.data = new double[][]{
+                {cosAngle, -sinAngle, 0, 0},
+                {sinAngle, cosAngle, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1}
+        };
+        return rotationMatrix;
+    }
+
 
 }

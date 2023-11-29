@@ -26,4 +26,10 @@ public class Ray {
         Vector scaledVector = VectorMath.multiplication(vector, t); // tD
         return VectorMath.addition(origin, scaledVector); // O + tD
     }
+
+    public Ray transform(Matrix matrix) {
+        Point transformedOrigin = matrix.multiply(this.origin);
+        Vector transformedVector = matrix.multiply(this.vector);
+        return new Ray(transformedOrigin, transformedVector);
+    }
 }
