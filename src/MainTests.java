@@ -10,6 +10,10 @@ public class MainTests {
 
         /**Transformation**/
         applyTransformations();
+
+        /**Szene und Kamera***/
+        applySzene();
+
     }
 
     private static void applyColors(){
@@ -130,7 +134,7 @@ public class MainTests {
             Canvas canvas = new Canvas(width, height, "Kugel_Transformation_" + (i + 1) + ".png");
             Sphere sphere = new Sphere();
             sphere.setTransformation(transformations[i]);
-            Point eye = new Point(0, 0, -10);  // Ursprung des Strahls
+            Point eye = new Point(0, -2, -10);  // Ursprung des Strahls
             double wallZ = 10.0;  // z-Position der Wand
             double wallSize = 15.0;  // Größe der Wand
             double pixelSize = wallSize / canvas.getWidth();  // Größe eines Pixels
@@ -152,9 +156,19 @@ public class MainTests {
                 }
             }
             canvas.saveToFile();
-
-
         }
+    }
+
+    private static void applySzene(){
+        Scene scene = new Scene();
+
+        Camera camera = new Camera(800, 600, 7.7, new Point(0, 0, -10), new Point(0, 0, 0), new Vector(0, 1, 0));
+        RayTracer rt = new RayTracer(scene, camera);
+        rt.render();
+        Canvas canvas = rt.getRenderTarget();
+        canvas.setFileName("transformation.png");
+        canvas.saveToFile(); // Methode, um den Canvas in eine Datei zu schreiben
+
     }
 
 }

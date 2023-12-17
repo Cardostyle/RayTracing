@@ -34,4 +34,18 @@ public class Intersections {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds.");
         }
     }
+
+    // Methode, um die Liste der Schnittpunkte zu sortieren
+    public void sortIntersections() {
+        intersections.sort(Intersection::compareTo);
+    }
+    // Methode, um den sichtbaren Schnittpunkt zu finden
+    public Intersection hit() {
+        for (Intersection intersection : intersections) {
+            if (intersection.getT() > 0) {
+                return intersection;
+            }
+        }
+        return null; // Kein sichtbarer Schnittpunkt gefunden
+    }
 }

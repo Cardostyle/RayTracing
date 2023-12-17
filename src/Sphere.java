@@ -2,6 +2,7 @@ public class Sphere extends Shape {
     private double radius;
     private Point origin;
 
+
     public Sphere() {
         this.radius = 1;
         this.origin = new Point(0, 0, 0);

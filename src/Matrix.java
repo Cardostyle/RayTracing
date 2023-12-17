@@ -296,5 +296,22 @@ public class Matrix {
         return rotationMatrix;
     }
 
+    // Methode zur Erstellung der View-Transformationsmatrix
+    public static Matrix viewTransform(Point position, Point lookAt, Vector up) {
+        Vector vpn = position.sub(lookAt).normalized();
+        Vector right = up.normalized().cross(vpn);
+        Vector trueUp = vpn.cross(right);
+
+        Matrix orientation = new Matrix(
+                new double[][] {
+                        {right.getX(), right.getY(), right.getZ(), 0},
+                        {trueUp.getX(), trueUp.getY(), trueUp.getZ(), 0},
+                        {vpn.getX(), vpn.getY(), vpn.getZ(), 0},
+                        {0, 0, 0, 1}
+                }
+        );
+
+        return orientation.multiply(Matrix.translate(-position.getX(), -position.getY(), -position.getZ()));
+    }
 
 }
