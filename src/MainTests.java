@@ -9,10 +9,10 @@ public class MainTests {
         //applySpheres();
 
         /**Transformation**/
-        applyTransformations();
+        //applyTransformations();
 
         /**Szene und Kamera***/
-      //  applySzene();
+        applySzene();
 
     }
 

@@ -14,7 +14,7 @@ public class Camera {
         this.height = height;
         this.fov = Math.toRadians(fov); // Umwandlung von Grad in Bogenmaß
         this.transform = Matrix.identity(4);
-        setTransform(transform);
+        calculateCameraParameters();
     }
 
     // Konstruktor mit extern berechneter View-Transformation
@@ -23,7 +23,7 @@ public class Camera {
         this.height = height;
         this.fov = Math.toRadians(fov); // Umwandlung von Grad in Bogenmaß
         this.transform = viewTransform;
-        setTransform(transform);
+        calculateCameraParameters();
     }
 
     // Konstruktor, der die View-Transformation berechnet
@@ -32,7 +32,7 @@ public class Camera {
         this.height = height;
         this.fov = Math.toRadians(fov); // Umwandlung von Grad in Bogenmaß
         this.transform = Matrix.viewTransform(position, lookAt, up);
-        setTransform(transform);
+        calculateCameraParameters();
     }
 
     // Getter- und Setter-Methoden
@@ -45,7 +45,7 @@ public class Camera {
     }
 
     public double getFov() {
-        return fov;
+        return Math.toRadians(fov);
     }
 
     public Matrix getTransform() {
