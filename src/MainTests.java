@@ -12,7 +12,7 @@ public class MainTests {
         applyTransformations();
 
         /**Szene und Kamera***/
-        applySzene();
+      //  applySzene();
 
     }
 
@@ -118,7 +118,7 @@ public class MainTests {
 
     }
     private static void applyTransformations() {
-        int width = 1000;
+        int width = 700;
         int height = 700;
 
         // Transformationen definieren
@@ -134,9 +134,9 @@ public class MainTests {
             Canvas canvas = new Canvas(width, height, "Kugel_Transformation_" + (i + 1) + ".png");
             Sphere sphere = new Sphere();
             sphere.setTransformation(transformations[i]);
-            Point eye = new Point(0, -2, -10);  // Ursprung des Strahls
+            Point eye = new Point(0, 0, -5);  // Ursprung des Strahls
             double wallZ = 10.0;  // z-Position der Wand
-            double wallSize = 15.0;  // Größe der Wand
+            double wallSize = 7.0;  // Größe der Wand
             double pixelSize = wallSize / canvas.getWidth();  // Größe eines Pixels
             double half = wallSize / 2;
 
