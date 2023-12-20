@@ -1,9 +1,12 @@
+package MainClasses;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class CanvasTest {
 
@@ -52,7 +55,7 @@ public class CanvasTest {
         // Überprüfen, ob die Datei existiert - vorheriger Test inclusive
         assertTrue(Files.exists(Paths.get(filename)));
 
-        // Erstellen Sie ein neues Canvas und lesen Sie die Datei
+        // Erstellen Sie ein neues MainClasses.Canvas und lesen Sie die Datei
         Canvas newCanvas = new Canvas(filename);
 
         // Überprüfen Sie die Pixelwerte

@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Sphere extends Shape {
     private double radius;
     private Point origin;

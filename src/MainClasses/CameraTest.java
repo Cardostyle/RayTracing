@@ -1,4 +1,6 @@
-import static org.junit.Assert.*;
+package MainClasses;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 public class CameraTest {
@@ -11,10 +13,10 @@ public class CameraTest {
         Camera camera = new Camera(hsize, vsize, fieldOfView);
         camera.calculateCameraParameters(); // Berechnet interne Parameter
 
-        assertEquals("Camera width should be 160", hsize, camera.getWidth());
-        assertEquals("Camera height should be 120", vsize, camera.getHeight());
-        assertEquals("Camera field of view should be 90 degrees", Math.toRadians(fieldOfView), camera.getFov(), 0.0);
-        assertEquals("Camera transform should be the identity matrix", Matrix.identity(4), camera.getTransform());
+        Assert.assertEquals("MainClasses.Camera width should be 160", hsize, camera.getWidth());
+        Assert.assertEquals("MainClasses.Camera height should be 120", vsize, camera.getHeight());
+        Assert.assertEquals("MainClasses.Camera field of view should be 90 degrees", Math.toRadians(fieldOfView), camera.getFov(), 0.0);
+        Assert.assertEquals("MainClasses.Camera transform should be the identity matrix", Matrix.identity(4), camera.getTransform());
     }
 
     @Test
@@ -22,7 +24,7 @@ public class CameraTest {
         Camera camera = new Camera(200, 125, 90);
         camera.calculateCameraParameters(); // Berechnet interne Parameter
 
-        assertEquals("Camera pixel size for horizontal canvas should be 0.01", 0.01, camera.pixelSize, 0.0001);
+        Assert.assertEquals("MainClasses.Camera pixel size for horizontal canvas should be 0.01", 0.01, camera.pixelSize, 0.0001);
     }
 
     @Test
@@ -30,7 +32,7 @@ public class CameraTest {
         Camera camera = new Camera(125, 200, 90);
         camera.calculateCameraParameters(); // Berechnet interne Parameter
 
-        assertEquals("Camera pixel size for vertical canvas should be 0.01", 0.01, camera.pixelSize, 0.0001);
+        Assert.assertEquals("MainClasses.Camera pixel size for vertical canvas should be 0.01", 0.01, camera.pixelSize, 0.0001);
     }
 
     @Test
@@ -38,8 +40,8 @@ public class CameraTest {
         Camera camera = new Camera(201, 101, 90);
         Ray ray = camera.generateRay(100, 50);
 
-        assertEquals("Ray origin should be at (0, 0, 0)", new Point(0, 0, 0), ray.getOrigin());
-        assertEquals("Ray direction should be (0, 0, -1)", new Vector(0, 0, -1), ray.getVector());
+        Assert.assertEquals("MainClasses.Ray origin should be at (0, 0, 0)", new Point(0, 0, 0), ray.getOrigin());
+        Assert.assertEquals("MainClasses.Ray direction should be (0, 0, -1)", new Vector(0, 0, -1), ray.getVector());
     }
 
     @Test
@@ -47,8 +49,8 @@ public class CameraTest {
         Camera camera = new Camera(201, 101, 90);
         Ray ray = camera.generateRay(0, 0);
 
-        assertEquals("Ray origin should be at (0, 0, 0)", new Point(0, 0, 0), ray.getOrigin());
-        assertEquals("Ray direction should be approximately (0.665186, 0.332593, -0.668512)",
+        Assert.assertEquals("MainClasses.Ray origin should be at (0, 0, 0)", new Point(0, 0, 0), ray.getOrigin());
+        Assert.assertEquals("MainClasses.Ray direction should be approximately (0.665186, 0.332593, -0.668512)",
                 new Vector(0.665186, 0.332593, -0.668512), ray.getVector());
     }
 
@@ -60,8 +62,8 @@ public class CameraTest {
 
         Ray ray = camera.generateRay(100, 50);
 
-        assertEquals("Ray origin should be at (0, 2, -5)", new Point(0, 2, -5), ray.getOrigin());
-        assertEquals("Ray direction should be approximately (0.707106, 0, -0.707106)",
+        Assert.assertEquals("MainClasses.Ray origin should be at (0, 2, -5)", new Point(0, 2, -5), ray.getOrigin());
+        Assert.assertEquals("MainClasses.Ray direction should be approximately (0.707106, 0, -0.707106)",
                 new Vector(0.707106, 0, -0.707106), ray.getVector());
     }
 }

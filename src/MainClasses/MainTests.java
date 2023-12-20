@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class MainTests {
 
     public static void main(String[] args) {
@@ -12,7 +14,10 @@ public class MainTests {
         //applyTransformations();
 
         /**Szene und Kamera***/
-        applySzene();
+        //applySzene();
+
+        /**Raytracer und Camera**/
+        applyRayTracer();
 
     }
 
@@ -167,9 +172,49 @@ public class MainTests {
         rt.render();
         Canvas canvas = rt.getRenderTarget();
         canvas.setFileName("transformation.png");
-        canvas.saveToFile(); // Methode, um den Canvas in eine Datei zu schreiben
+        canvas.saveToFile();
 
     }
+
+    public static void applyRayTracer() {
+        // Szene 1: Eine Kugel im Zentrum
+        Scene scene1 = createSceneWithCenteredSphere();
+        Camera camera1 = new Camera(800, 600, 7.7, new Point(0, 0, -10), new Point(0, 0, 0), new Vector(0, 1, 0));
+        renderScene(scene1, camera1, "szene1.png");
+
+        // Szene 2: Ein Viertel der Kugel in der linken oberen Ecke
+        Scene scene2 = createSceneWithCenteredSphere();
+        Camera camera2 = new Camera(600, 600, 11.4, new Point(0, 0, -10), new Point(1, 1, 0), new Vector(0, 1, 0));
+        renderScene(scene2, camera2, "szene2.png");
+
+        // Szene 3: Kugel von Rand zu Rand
+        Scene scene3 = createSceneWithCenteredSphere();
+        Camera camera3 = new Camera(600, 600, 2.7, new Point(10, 10, -10), new Point(0, 0, 0), new Vector(0, 1, 0));
+        renderScene(scene3, camera3, "szene3.png");
+
+        // Weitere Szenen...
+    }
+
+    private static Scene createSceneWithCenteredSphere() {
+        Scene scene = new Scene();
+        Sphere sphere = new Sphere();
+        // Transformation der Kugel
+        Matrix transformation = Matrix.scale(0.5, 0.5, 0.5); // Skalierung auf Radius 0.5
+
+        //Setzen der Transformation für die Kugel
+        sphere.setTransformation(transformation);
+        scene.addObject(sphere);
+        return scene;
+    }
+
+    private static void renderScene(Scene scene, Camera camera, String filename) {
+        RayTracer rayTracer = new RayTracer(scene, camera);
+        rayTracer.render();
+        Canvas canvas = rayTracer.getRenderTarget();
+        canvas.setFileName(filename);
+        canvas.saveToFile();
+    }
+
 
 }
 

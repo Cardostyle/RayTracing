@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Camera {
     private int width;
     private int height;
@@ -6,7 +8,7 @@ public class Camera {
     private double aspectRatio;
     private double halfWidth;
     private double halfHeight;
-    public double pixelSize; // Muss public sein für Tests
+    public double pixelSize; // Muss public sein für MainClasses.Tests
 
     // Konstruktor mit Standard-View-Transformation (Einheitsmatrix)
     public Camera(int width, int height, double fov) {
@@ -45,7 +47,7 @@ public class Camera {
     }
 
     public double getFov() {
-        return Math.toRadians(fov);
+        return fov;
     }
 
     public Matrix getTransform() {
@@ -59,7 +61,7 @@ public class Camera {
     // Methode zur Berechnung der internen Kameraparameter
     public void calculateCameraParameters() {
         aspectRatio = (double) width / height;
-        double halfView = Math.tan(fov / 2);
+        double halfView = Math.tan(fov  / 2);
 
         if (aspectRatio >= 1) {
             halfWidth = halfView;
@@ -74,7 +76,7 @@ public class Camera {
 
     // Methode zur Erzeugung eines Strahls für ein spezifisches Pixel
     public Ray generateRay(int pixelX, int pixelY) {
-        // Offset vom Rand des Canvas zum Pixelzentrum
+        // Offset vom Rand des MainClasses.Canvas zum Pixelzentrum
         double xOffset = (pixelX + 0.5) * pixelSize;
         double yOffset = (pixelY + 0.5) * pixelSize;
 

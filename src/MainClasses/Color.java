@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Color {
     private double red;
     private double green;
@@ -39,7 +41,7 @@ public class Color {
 
     @Override
     public String toString() {
-        return "Color{" +
+        return "MainClasses.Color{" +
                 "red=" + red +
                 ", green=" + green +
                 ", blue=" + blue +

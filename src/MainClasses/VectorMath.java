@@ -1,9 +1,11 @@
+package MainClasses;
+
 import java.lang.Math;
 
 /**
  * Diese Klasse wurde in Instanzmethoden umgeschrieben und wird somit nicht mehr benutzt.
- * Man braucht sie jedoch weiterhin für einige Tests.
- * Die jetzigen Methoden sind in Point.java und in Vector.java
+ * Man braucht sie jedoch weiterhin für einige MainClasses.Tests.
+ * Die jetzigen Methoden sind in MainClasses.Point.java und in MainClasses.Vector.java
  **/
 
 public class VectorMath {

@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Vector {
 
     private double w;

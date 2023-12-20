@@ -1,17 +1,19 @@
+package MainClasses;
+
 public class Matrix {
     private double[][] data;
     private int size;
 
-    // Konstruktor für eine leere Matrix der gegebenen Größe
+    // Konstruktor für eine leere MainClasses.Matrix der gegebenen Größe
     public Matrix(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Die Größe der Matrix muss größer als 0 sein.");
+            throw new IllegalArgumentException("Die Größe der MainClasses.Matrix muss größer als 0 sein.");
         }
         this.size = size;
         this.data = new double[size][size];
     }
 
-    //Erstellen einer Matrix mit einem Array
+    //Erstellen einer MainClasses.Matrix mit einem Array
     public Matrix(double[][] data) {
         this.size = data.length;
         this.data = data;
@@ -23,7 +25,7 @@ public class Matrix {
         return data[row][col];
     }
 
-    // Methode, um die i-te Zeile der Matrix zu erhalten
+    // Methode, um die i-te Zeile der MainClasses.Matrix zu erhalten
     public double[] getRow(int i) {
         if (i < 0 || i >= size) {
             throw new IllegalArgumentException("Row index out of bounds");
@@ -52,7 +54,7 @@ public class Matrix {
         return identity;
     }
 
-    // Methode zur Ausgabe der Matrix auf der Konsole
+    // Methode zur Ausgabe der MainClasses.Matrix auf der Konsole
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -66,7 +68,7 @@ public class Matrix {
         return sb.toString();
     }
 
-    // Getter für die Größe der Matrix
+    // Getter für die Größe der MainClasses.Matrix
     public int getSize() {
         return size;
     }
@@ -77,7 +79,7 @@ public class Matrix {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        // Cast zu Matrix
+        // Cast zu MainClasses.Matrix
         Matrix matrix = (Matrix) o;
         // Size check
         if (this.size != matrix.size) {
@@ -143,7 +145,7 @@ public class Matrix {
         return new Point(result[0], result[1], result[2], result[3]);
     }
 
-    //rechnung für Multiplikation von Vektor/Point
+    //rechnung für Multiplikation von Vektor/MainClasses.Point
     private double[] multiply(double[] vec) {
         double[] result = new double[4];
         for (int i = 0; i < 4; i++) {
@@ -155,7 +157,7 @@ public class Matrix {
         return result;
     }
 
-    // Methode zum Transponieren der Matrix
+    // Methode zum Transponieren der MainClasses.Matrix
     public Matrix transpose() {
         double[][] transposedData = new double[size][size];
         for (int i = 0; i < size; i++) {
@@ -197,12 +199,12 @@ public class Matrix {
         return mat;
     }
 
-    // Methode zur Berechnung des Minors einer Matrix
+    // Methode zur Berechnung des Minors einer MainClasses.Matrix
     public double minor(int row, int col) {
         return subMatrix(row, col).determinant();
     }
 
-    // Methode zur Berechnung des Kofaktors einer Matrix
+    // Methode zur Berechnung des Kofaktors einer MainClasses.Matrix
     public double cofactor(int row, int col) {
         return Math.pow(-1, row + col) * minor(row, col);
     }
@@ -218,11 +220,11 @@ public class Matrix {
         return new Matrix(adj).transpose();
     }
 
-    // Methode zur Berechnung der inversen Matrix
+    // Methode zur Berechnung der inversen MainClasses.Matrix
     public Matrix inverse() {
         double det = this.determinant();
         if (Math.abs(det) < 1e-9) {
-            throw new ArithmeticException("Matrix ist nicht invertierbar, da ihre Determinante null ist.");
+            throw new ArithmeticException("MainClasses.Matrix ist nicht invertierbar, da ihre Determinante null ist.");
         }
         //Adjunkte erhalten
         Matrix adjugate = this.adjugate();

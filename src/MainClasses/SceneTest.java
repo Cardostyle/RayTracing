@@ -1,4 +1,8 @@
+package MainClasses;
+
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 public class SceneTest {
@@ -14,8 +18,8 @@ public class SceneTest {
         Scene scene = new Scene();
         Sphere sphere = new Sphere();
         scene.addObject(sphere);
-        assertFalse("Scene should not be empty after adding a sphere", scene.getObjects().isEmpty());
-        assertTrue("Scene should contain the added sphere", scene.getObjects().contains(sphere));
+        assertFalse("MainClasses.Scene should not be empty after adding a sphere", scene.getObjects().isEmpty());
+        assertTrue("MainClasses.Scene should contain the added sphere", scene.getObjects().contains(sphere));
     }
     @Test
     public void intersectSceneWithRay() {

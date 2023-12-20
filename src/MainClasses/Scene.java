@@ -1,7 +1,9 @@
+package MainClasses;
+
 import java.util.ArrayList;
 import java.util.List;
 
-// Klasse Scene
+// Klasse MainClasses.Scene
 public class Scene {
     private List<Shape> objects; // Liste der Objekte in der Szene
 

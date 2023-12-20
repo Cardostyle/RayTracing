@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Ray {
 
     private Point origin;

@@ -1,3 +1,5 @@
+package MainClasses;
+
 public class Point {
 
     private double w;

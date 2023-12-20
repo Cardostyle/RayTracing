@@ -1,5 +1,7 @@
+package MainClasses;
+
 public class Intersection{
-    private double t; //länge Punkt am Ray/Vector
+    private double t; //länge Punkt am MainClasses.Ray/MainClasses.Vector
     private Shape shape;
 
     public Intersection(double t, Shape shape){

@@ -1,4 +1,8 @@
+package MainClasses;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MatrixTest {
@@ -203,7 +207,7 @@ public class MatrixTest {
                 {8, 6, 4, 1},
                 {0, 0, 0, 1}
         });
-        Point p = new Point(1, 2, 3); // Assuming the Point class has a constructor Point(x, y, z)
+        Point p = new Point(1, 2, 3); // Assuming the MainClasses.Point class has a constructor MainClasses.Point(x, y, z)
         Point expected = new Point(18, 24, 33);
         Point result = m.multiply(p);
         assertEquals(result, expected);
