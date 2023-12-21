@@ -1,16 +1,16 @@
 package MainClasses;
 
-public class Intersection{
-    private double t; //länge Punkt am MainClasses.Ray/MainClasses.Vector
-    private Shape shape;
+import java.util.Objects;
 
-    public Intersection(double t, Shape shape){
-        this.t=t;
-        this.shape =shape;
-    }
+
+/**
+ * @param t länge Punkt am MainClasses.Ray/MainClasses.Vector
+ */
+public record Intersection(double t, Shape shape) {
+
     @Override
-    public String toString(){
-        return "t: " +t+"\n shape: " +shape.getClass().toString();
+    public String toString() {
+        return "t: " + t + "\n shape: " + shape.toString();
     }
 
     @Override
@@ -23,27 +23,19 @@ public class Intersection{
         }
 
         Intersection other = (Intersection) obj;
-        return Double.compare(t, other.t) == 0 && (shape == other.shape || (shape != null && shape.equals(other.shape)));
-    }
-
-    public double getT() {
-        return t;
-    }
-
-    public Shape getShape() {
-        return shape;
-    }
-
-    public void setShape(Sphere shape) {
-        this.shape = shape;
-    }
-
-    public void setT(double t) {
-        this.t = t;
+        return Double.compare(t, other.t) == 0 && (Objects.equals(shape, other.shape));
     }
 
     public int compareTo(Intersection other) {
         return Double.compare(this.t, other.t);
+    }
+
+    public double getT(){
+        return t;
+    }
+
+    public Shape getShape(){
+        return shape;
     }
 
 }

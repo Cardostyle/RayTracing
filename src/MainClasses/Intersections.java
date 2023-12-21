@@ -1,16 +1,13 @@
 package MainClasses;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Intersections {
 
-    private List<Intersection> intersections= new ArrayList<>();;
+    private List<Intersection> intersections= new ArrayList<>();
 
-    public Intersections(Intersection[] i){
-        for (Intersection intersection : i){
-            intersections.add(intersection);
-        }
+    public Intersections(Intersection[] intersections){
+        for (Intersection i : intersections) add(i);
     }
 
     public Intersections(){
@@ -19,6 +16,7 @@ public class Intersections {
 
     public void add(Intersection i){
         intersections.add(i);
+        intersections.sort(Comparator.comparing(Intersection::t));
     }
 
     public List<Intersection> getIntersections() {
@@ -37,14 +35,10 @@ public class Intersections {
         }
     }
 
-    // Methode, um die Liste der Schnittpunkte zu sortieren
-    public void sortIntersections() {
-        intersections.sort(Intersection::compareTo);
-    }
     // Methode, um den sichtbaren Schnittpunkt zu finden
     public Intersection hit() {
         for (Intersection intersection : intersections) {
-            if (intersection.getT() > 0) {
+            if (intersection.t() > 0) {
                 return intersection;
             }
         }

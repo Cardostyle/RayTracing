@@ -26,20 +26,21 @@ public class Scene {
     public static Scene defaultScene() {
         Scene scene = new Scene();
         scene.addObject(new Sphere()); // nicht transformierte Kugel
-        scene.addObject(new Sphere()); // verkleinerte Kugel im Ursprung
-        // Weitere Objekte können hier hinzugefügt werden
+        Sphere smallSphere = new Sphere(); // verkleinerte Kugel im Ursprung
+        smallSphere.setTransformation(Matrix.scale(0.5,0.5,0.5));
+        scene.addObject(smallSphere);
+
         return scene;
     }
 
     public Intersections traceRay(Ray ray) {
         Intersections result = new Intersections();
         for (Shape shape : objects) {
-            Intersections shapeIntersections = shape.localIntersect(ray);
+            Intersections shapeIntersections = shape.intersect(ray);
             for (Intersection i : shapeIntersections.getIntersections()) {
                 result.add(i);
             }
         }
-        result.sortIntersections();
         return result;
     }
 
