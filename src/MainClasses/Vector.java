@@ -100,4 +100,8 @@ public class Vector {
         return new Vector(x / length, y / length, z / length);
     }
 
+    public Vector reflect(Vector normal) {
+        return this.sub(normal.mult(2 * this.dot(normal)));
+    }
+
 }

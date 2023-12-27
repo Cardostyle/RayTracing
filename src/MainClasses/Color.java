@@ -32,12 +32,23 @@ public class Color {
     public Color hadamardProduct(Color other) {
         return new Color(red * other.red, green * other.green, blue * other.blue);
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true; // Objekte sind identisch
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false; // Objekt ist null oder von einem anderen Typ
+        }
 
-    public boolean isEqual(Color other, double epsilon) {
+        Color other = (Color) obj;
+        final double epsilon = 0.01; // Toleranz für Farbvergleiche
+
         return Math.abs(red - other.red) < epsilon &&
                 Math.abs(green - other.green) < epsilon &&
                 Math.abs(blue - other.blue) < epsilon;
     }
+
 
     @Override
     public String toString() {

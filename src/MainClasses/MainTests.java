@@ -17,7 +17,10 @@ public class MainTests {
         //applySzene();
 
         /**Raytracer und Camera**/
-        applyRayTracer();
+        //applyRayTracer();
+
+        /**Licht und Material**/
+        applyLights();
 
     }
 
@@ -212,6 +215,116 @@ public class MainTests {
         rayTracer.render();
         Canvas canvas = rayTracer.getRenderTarget();
         canvas.setFileName(filename);
+        canvas.saveToFile();
+    }
+
+    private static void applyLights(){
+        // Erstellen der Szene
+        Scene scene1 = new Scene();
+        Scene scene2 = new Scene();
+        Scene scene3 = new Scene();
+        Scene scene4 = new Scene();
+        Scene sceneComplex = new Scene();
+
+
+        // Hinzufügen der Punktlichtquelle
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1), 1);
+        scene1.addLight(light);
+        scene2.addLight(light);
+        scene3.addLight(light);
+        scene4.addLight(light);
+        sceneComplex.addLight(light);
+
+        // Erstellen und Konfigurieren der Kugel4
+        Sphere sphere1 = new Sphere();
+        Material sphere1Material = new Material(new Color(1, 0.5, 1), 0.1, 0, 0, 200);
+        sphere1.setMaterial(sphere1Material);
+        scene1.addObject(sphere1);
+
+        // Erstellen und Konfigurieren der Kugel4
+        Sphere sphere2 = new Sphere();
+        Material sphere2Material = new Material(new Color(1, 0.5, 1), 0, 0.9, 0, 200);
+        sphere2.setMaterial(sphere2Material);
+        scene2.addObject(sphere2);
+
+        // Erstellen und Konfigurieren der Kugel4
+        Sphere sphere3 = new Sphere();
+        Material sphere3Material = new Material(new Color(1, 0.5, 1), 0, 0, 0.9, 200);
+        sphere3.setMaterial(sphere3Material);
+        scene3.addObject(sphere3);
+
+        // Erstellen und Konfigurieren der Kugel4
+        Sphere sphere4 = new Sphere();
+        Material sphere4Material = new Material(new Color(1, 0.5, 1), 0.1, 0.9, 0.9, 200);
+        sphere4.setMaterial(sphere4Material);
+        scene4.addObject(sphere4);
+
+        // Erstellen und Konfigurieren der Kamera
+        Camera camera = new Camera(800, 800, 90, new Point(0, 0, -2), new Point(0, 0, 0), new Vector(0, 1, 0));
+
+        // Erstellen des RayTracers und Rendern der Szene1
+        RayTracer rayTracer = new RayTracer(scene1, camera);
+        rayTracer.render();
+
+        // Speichern des gerenderten Bildes
+        Canvas canvas = rayTracer.getRenderTarget();
+        canvas.setFileName("Lights1.png");
+        canvas.saveToFile();
+
+        // Erstellen des RayTracers und Rendern der Szene1
+        rayTracer = new RayTracer(scene2, camera);
+        rayTracer.render();
+
+        // Speichern des gerenderten Bildes
+        canvas = rayTracer.getRenderTarget();
+        canvas.setFileName("Lights2.png");
+        canvas.saveToFile();
+
+        // Erstellen des RayTracers und Rendern der Szene1
+        rayTracer = new RayTracer(scene3, camera);
+        rayTracer.render();
+
+        // Speichern des gerenderten Bildes
+        canvas = rayTracer.getRenderTarget();
+        canvas.setFileName("Lights3.png");
+        canvas.saveToFile();
+
+        // Erstellen des RayTracers und Rendern der Szene1
+        rayTracer = new RayTracer(scene4, camera);
+        rayTracer.render();
+
+        // Speichern des gerenderten Bildes
+        canvas = rayTracer.getRenderTarget();
+        canvas.setFileName("Lights4.png");
+        canvas.saveToFile();
+
+        //Komplexe szene
+        sceneComplex.addObject(sphere4);
+
+        Sphere sphere5 = new Sphere();
+        Material material5 =  new Material(new Color(1, 0.1, 0.2), 0.2, 0.9, 5, 300);
+        //TODO Sphere Verschieben
+        sphere5.setTransformation(Matrix.translate(-1.7,-1.2,0).multiply(Matrix.scale(0.4,0.4,0.4)));
+
+        sphere5.setMaterial(material5);
+        sceneComplex.addObject(sphere5);
+
+        Sphere sphere6 = new Sphere();
+        Material material6 =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        //TODO Sphere Verschieben
+        sphere6.setTransformation(Matrix.translate(1.7,-1.2,0.1).multiply(Matrix.scale(0.4,0.4,0.4)));
+        sphere6.setMaterial(material6);
+        sceneComplex.addObject(sphere6);
+
+
+        // Erstellen des RayTracers und Rendern der Szene1
+
+        rayTracer = new RayTracer(sceneComplex, new Camera(1600, 1200, 90, new Point(0, -0.2, -3), new Point(0, 0, 0), new Vector(0, 1, 0)));
+        rayTracer.render();
+
+        // Speichern des gerenderten Bildes
+        canvas = rayTracer.getRenderTarget();
+        canvas.setFileName("LightsComplex.png");
         canvas.saveToFile();
     }
 

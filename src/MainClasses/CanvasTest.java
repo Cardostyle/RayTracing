@@ -60,7 +60,7 @@ public class CanvasTest {
 
         // Überprüfen Sie die Pixelwerte
         Color readColor = newCanvas.getPixel(30, 30);
-        assertTrue(color.isEqual(readColor, 0.01));
+        assertEquals(color, readColor);
     }
 
     @Test

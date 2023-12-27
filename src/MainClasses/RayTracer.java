@@ -16,10 +16,25 @@ public class RayTracer {
             for (int x = 0; x < camera.getWidth(); x++) {
                 Ray ray = camera.generateRay(x, y);
                 Intersections intersections = scene.traceRay(ray);
-                if (intersections.hit() != null) {
-                    renderTarget.setPixel(x, y, new Color(1,0.5,0));
+                Intersection hit = intersections.hit();
+
+                if (hit != null) {
+                    // Anfangswert für die Farbe
+                    Color color = new Color(0, 0, 0);
+
+                    // Beleuchtungsberechnung für jede Lichtquelle
+                    for (LightSource light : scene.getLights()) {
+                        Point hitPoint = ray.pointAt(hit.getT());
+                        Vector eyeV = ray.getVector().negate();
+                        Vector normalV = hit.getShape().normalAt(hitPoint);
+
+                        // Addiere die Beleuchtung dieser Lichtquelle
+                        color = color.add(hit.getShape().getMaterial().phongLighting((PointLightSource) light, hitPoint, eyeV, normalV));
+                    }
+
+                    renderTarget.setPixel(x, y, color);
                 } else {
-                    renderTarget.setPixel(x, y, new Color(0,1,1));
+                    renderTarget.setPixel(x, y, Color.BLACK);
                 }
             }
         }
@@ -28,8 +43,4 @@ public class RayTracer {
     public Canvas getRenderTarget() {
         return renderTarget;
     }
-
-
 }
-
-
