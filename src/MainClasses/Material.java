@@ -100,29 +100,35 @@ public class Material {
                 '}';
     }
 
-    public Color phongLighting(PointLightSource light, Point point, Vector eye, Vector normal) {
+
+    public Color phongLighting(PointLightSource light, Point point, Vector eye, Vector normal, boolean inShadow) {
         // Ambiente Beleuchtung
-        Color ambient = this.color.scale(this.ambient);
+        Color ambientColor = this.color.scale(this.ambient);
+
+        // Wenn der Punkt im Schatten liegt, wird nur der ambiente Anteil zurückgegeben
+        if (inShadow) {
+            return ambientColor;
+        }
 
         // Lichtvektor (von Punkt zur Lichtquelle)
         Vector lightV = light.getPosition().sub(point).normalize();
 
         // Diffuse Beleuchtung
         double lightDotNormal = lightV.dot(normal);
-        Color diffuse = light.getColor().scale(this.diffuse).scale(Math.max(lightDotNormal, 0));
+        Color diffuseColor = light.getColor().scale(this.diffuse).scale(Math.max(lightDotNormal, 0));
 
         // Reflektierter Vektor
         Vector reflectV = lightV.negate().reflect(normal);
 
         // Spekulare Beleuchtung
         double reflectDotEye = reflectV.dot(eye);
-        Color specular = new Color(0, 0, 0);
+        Color specularColor = new Color(0, 0, 0);
         if (reflectDotEye > 0) {
             double factor = Math.pow(reflectDotEye, this.shininess);
-            specular = light.getColor().scale(this.specular).scale(factor);
+            specularColor = light.getColor().scale(this.specular).scale(factor);
         }
 
         // Gesamte Beleuchtung
-        return ambient.add(diffuse).add(specular);
+        return ambientColor.add(diffuseColor).add(specularColor);
     }
 }

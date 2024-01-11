@@ -12,7 +12,7 @@ public class MaterialTest {
         Vector eyev = new Vector(0, 0, -1);
         Vector normalv = new Vector(0, 0, -1);
         PointLightSource light = new PointLightSource(new Point(0, 0, -10), new Color(1, 1, 1));
-        Color result = material.phongLighting(light, position, eyev, normalv);
+        Color result = material.phongLighting(light, position, eyev, normalv,false);
         assertEquals(new Color(1.9, 1.9, 1.9), result);
     }
 
@@ -23,7 +23,7 @@ public class MaterialTest {
         Vector eyev = new Vector(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
         Vector normalv = new Vector(0, 0, -1);
         PointLightSource light = new PointLightSource(new Point(0, 0, -10), new Color(1, 1, 1));
-        Color result = material.phongLighting(light, position, eyev, normalv);
+        Color result = material.phongLighting(light, position, eyev, normalv,false);
         assertEquals(new Color(1.0, 1.0, 1.0), result);
     }
 
@@ -34,7 +34,7 @@ public class MaterialTest {
         Vector eyev = new Vector(0, 0, -1);
         Vector normalv = new Vector(0, 0, -1);
         PointLightSource light = new PointLightSource(new Point(0, 10, -10), new Color(1, 1, 1));
-        Color result = material.phongLighting(light, position, eyev, normalv);
+        Color result = material.phongLighting(light, position, eyev, normalv,false);
         assertEquals(new Color(0.736396, 0.736396, 0.736396), result);
     }
 
@@ -45,7 +45,7 @@ public class MaterialTest {
         Vector eyev = new Vector(0, -Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
         Vector normalv = new Vector(0, 0, -1);
         PointLightSource light = new PointLightSource(new Point(0, 10, -10), new Color(1, 1, 1));
-        Color result = material.phongLighting(light, position, eyev, normalv);
+        Color result = material.phongLighting(light, position, eyev, normalv,false);
         assertEquals(new Color(1.636197, 1.636197, 1.636197), result);
     }
 
@@ -56,7 +56,7 @@ public class MaterialTest {
         Vector eyev = new Vector(0, 0, -1);
         Vector normalv = new Vector(0, 0, -1);
         PointLightSource light = new PointLightSource(new Point(0, 0, 10), new Color(1, 1, 1));
-        Color result = material.phongLighting(light, position, eyev, normalv);
+        Color result = material.phongLighting(light, position, eyev, normalv,false);
         assertEquals(new Color(0.1, 0.1, 0.1), result);
     }
 }

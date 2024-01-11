@@ -9,6 +9,18 @@ public abstract class LightSource {
         this.intensity = intensity;
     }
 
+    public abstract boolean isDirectional();
+
+    public abstract Vector directionFromPoint(Point p);
+
+    public abstract Vector directionToPoint(Point p);
+
+    public abstract double distanceFromPoint(Point p);
+
+    public Color colorAtPoint(Point p) {
+        return color.scale(intensity);
+    }
+
     // Getter und Setter
     public Color getColor() {
         return color;

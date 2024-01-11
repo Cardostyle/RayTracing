@@ -67,7 +67,7 @@ public class Vector {
     }
 
     public double dot(Vector v) {
-        return x * v.x + y * v.y + z * v.z;
+        return  x * v.x + y * v.y + z * v.z;
     }
 
     public Vector cross(Vector v) {

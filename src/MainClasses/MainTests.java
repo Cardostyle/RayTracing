@@ -20,7 +20,10 @@ public class MainTests {
         //applyRayTracer();
 
         /**Licht und Material**/
-        applyLights();
+        //applyLights();
+
+        /**Shadows**/
+        applySceneWithShadow();
 
     }
 
@@ -303,7 +306,6 @@ public class MainTests {
 
         Sphere sphere5 = new Sphere();
         Material material5 =  new Material(new Color(1, 0.1, 0.2), 0.2, 0.9, 5, 300);
-        //TODO Sphere Verschieben
         sphere5.setTransformation(Matrix.translate(-1.7,-1.2,0).multiply(Matrix.scale(0.4,0.4,0.4)));
 
         sphere5.setMaterial(material5);
@@ -311,7 +313,6 @@ public class MainTests {
 
         Sphere sphere6 = new Sphere();
         Material material6 =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
-        //TODO Sphere Verschieben
         sphere6.setTransformation(Matrix.translate(1.7,-1.2,0.1).multiply(Matrix.scale(0.4,0.4,0.4)));
         sphere6.setMaterial(material6);
         sceneComplex.addObject(sphere6);
@@ -328,6 +329,82 @@ public class MainTests {
         canvas.saveToFile();
     }
 
+    private static void applySceneWithShadow() {
+        Scene scene1 = new Scene();
 
+        // Add a sphere as the floor
+        Sphere floor = new Sphere();
+        floor.setTransformation(Matrix.scale(10, 0.01, 10));
+        scene1.addObject(floor);
+
+        Sphere sphere4 = new Sphere();
+        Material sphere4Material = new Material(new Color(1, 0.5, 1), 0.1, 0.9, 0.9, 200);
+        sphere4.setTransformation(Matrix.translate(0,1.3,0));
+        sphere4.setMaterial(sphere4Material);
+        scene1.addObject(sphere4);
+
+        Sphere sphere5 = new Sphere();
+        Material material5 =  new Material(new Color(1, 0.1, 0.2), 0.2, 0.9, 5, 300);
+        sphere5.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.4,0.4,0.4)));
+
+        sphere5.setMaterial(material5);
+        scene1.addObject(sphere5);
+
+        Sphere sphere6 = new Sphere();
+        Material material6 =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        sphere6.setTransformation(Matrix.translate(1.7,0.7,0.1).multiply(Matrix.scale(0.4,0.4,0.4)));
+        sphere6.setMaterial(material6);
+        scene1.addObject(sphere6);
+
+        // Add light source
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1));
+        scene1.addLight(light);
+
+        // Set up the camera
+        Camera camera = new Camera(800, 400, 70, new Point(0, 1.5, -5), new Point(0, 1, 0), new Vector(0, 1, 0));
+
+        // Render the scene
+        RayTracer rt = new RayTracer(scene1, camera);
+        rt.render();
+        Canvas canvas = rt.getRenderTarget();
+        canvas.setFileName("shadows1.png");
+        canvas.saveToFile();
+
+/**
+        //gerichtetes Licht
+        Scene scene2 = new Scene();
+        scene2.addObject(floor);
+        scene2.addObject(sphere4);
+        scene2.addObject(sphere5);
+        scene2.addObject(sphere6);
+        DirectionalLightSource directedLight1=new DirectionalLightSource(new Vector(10.0,-10.0,10.0),new Color(1,1,1),0.5);
+        DirectionalLightSource directedLight2=new DirectionalLightSource(new Vector(10.0,-10.0,10.0),new Color(1,1,1),1);
+        DirectionalLightSource directedLight3=new DirectionalLightSource(new Vector(10.0,-10.0,10.0),new Color(1,1,1),10);
+        scene2.addLight(directedLight1);
+
+        rt = new RayTracer(scene2, camera);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("shadows2.png");
+        canvas.saveToFile();
+**/
+
+        //Spotlights
+        Scene scene3 = new Scene();
+        scene3.addObject(floor);
+        scene3.addObject(sphere4);
+        scene3.addObject(sphere5);
+        scene3.addObject(sphere6);
+        SpotLightSource spotLight1= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),0.5);
+        SpotLightSource spotLight2= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),1);
+        SpotLightSource spotLight3= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),10);
+        scene3.addLight(spotLight1);
+
+        rt = new RayTracer(scene3, camera);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("shadows3.png");
+        canvas.saveToFile();
+    }
 }
 

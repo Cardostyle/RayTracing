@@ -66,4 +66,70 @@ public class Scene {
         }
         return result;
     }
+
+    public Color shadeHit(HitInfo info) {
+        // Prüfen, ob es Lichtquellen in der Szene gibt
+        if (lights.isEmpty()) {
+            return Color.BLACK; // Keine Beleuchtung, wenn keine Lichtquellen vorhanden sind
+        }
+
+        // Verwenden Sie die erste Lichtquelle für die Beleuchtungsberechnung
+        return info.getObject().getMaterial().phongLighting(
+                (PointLightSource) lights.get(0),
+                info.getHitPoint(),
+                info.getEyeDirection(),
+                info.getNormal(),
+                isShadowed(info)
+        );
+    }
+    /**
+    public Color shadeHit(HitInfo info) {
+        // Anfangsfarbe ist schwarz (keine Beleuchtung)
+        Color finalColor = Color.BLACK;
+
+        // Iterieren über alle Lichtquellen
+        for (LightSource light : lights) {
+            // Bestimmen, ob der Punkt im Schatten dieser Lichtquelle liegt
+            boolean isShadowed = isShadowed(info, light);
+
+            // Beleuchtungsberechnung für diese Lichtquelle
+            Color lightContribution = info.getObject().getMaterial().phongLighting(
+                    light, info.getHitPoint(), info.getEyeDirection(), info.getNormal(), isShadowed);
+
+            // Aufsummieren der Beleuchtungsbeiträge
+            finalColor = finalColor.add(lightContribution);
+        }
+
+        return finalColor;
+    }
+    **/
+
+    public boolean isShadowed(Point point) {
+        PointLightSource light = (PointLightSource) lights.get(0);
+        Vector toLight = light.getPosition().sub(point); // Richtung zur Lichtquelle
+        double distanceToLight = toLight.magnitude(); // Entfernung zur Lichtquelle
+        Ray shadowRay = new Ray(point, toLight.normalize()); // Schattenfühler
+
+        Intersections intersections = traceRay(shadowRay);
+
+        Intersection hit = intersections.hit();
+        return hit != null && hit.getT() < distanceToLight;
+    }
+
+    public boolean isShadowed(HitInfo info) {
+        final double EPSILON = 0.0001; // Ein kleiner Wert zur Vermeidung von numerischen Problemen
+        PointLightSource light = (PointLightSource) lights.get(0);
+
+        // Verschieben des Startpunkts entlang der Normalen
+        Point shadowOrigin = info.getHitPoint().add(info.getNormal().mult(EPSILON));
+        Vector toLight = light.getPosition().sub(shadowOrigin);
+        double distanceToLight = toLight.magnitude();
+        Ray shadowRay = new Ray(shadowOrigin, toLight.normalize());
+
+        Intersections intersections = traceRay(shadowRay);
+        Intersection hit = intersections.hit();
+        return hit != null && hit.getT() < distanceToLight;
+    }
+
+
 }

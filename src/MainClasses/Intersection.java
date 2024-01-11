@@ -38,4 +38,11 @@ public record Intersection(double t, Shape shape) {
         return shape;
     }
 
+    public HitInfo prepareHitInfo(Ray ray) {
+        Point hitPoint = ray.pointAt(t);
+        Vector eyeDirection = ray.getVector().negate();
+        Vector normal = shape.normalAt(hitPoint);
+        return new HitInfo(shape, t, hitPoint, eyeDirection, normal);
+    }
+
 }

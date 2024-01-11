@@ -19,19 +19,8 @@ public class RayTracer {
                 Intersection hit = intersections.hit();
 
                 if (hit != null) {
-                    // Anfangswert für die Farbe
-                    Color color = new Color(0, 0, 0);
-
-                    // Beleuchtungsberechnung für jede Lichtquelle
-                    for (LightSource light : scene.getLights()) {
-                        Point hitPoint = ray.pointAt(hit.getT());
-                        Vector eyeV = ray.getVector().negate();
-                        Vector normalV = hit.getShape().normalAt(hitPoint);
-
-                        // Addiere die Beleuchtung dieser Lichtquelle
-                        color = color.add(hit.getShape().getMaterial().phongLighting((PointLightSource) light, hitPoint, eyeV, normalV));
-                    }
-
+                    HitInfo hitInfo = hit.prepareHitInfo(ray);
+                    Color color = scene.shadeHit(hitInfo);
                     renderTarget.setPixel(x, y, color);
                 } else {
                     renderTarget.setPixel(x, y, Color.BLACK);
@@ -39,6 +28,7 @@ public class RayTracer {
             }
         }
     }
+
 
     public Canvas getRenderTarget() {
         return renderTarget;
