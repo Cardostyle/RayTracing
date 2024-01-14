@@ -4,6 +4,7 @@ public class MainTests {
 
     public static void main(String[] args) {
 
+        long startTime = System.nanoTime(); // Startzeit in Nanosekunden
         /**Farben**/
         //applyColors();
 
@@ -23,8 +24,16 @@ public class MainTests {
         //applyLights();
 
         /**Shadows**/
-        applySceneWithShadow();
+        //applySceneWithShadow();
 
+        /**Reflektionen**/
+        //applyRefelections();
+
+        /**Verschiedene Formen**/
+        applyShapes();
+
+        long endTime = System.nanoTime(); // Endzeit in Nanosekunden
+        System.out.println((endTime-startTime)/6e+10 + "Minuten");
     }
 
     private static void applyColors(){
@@ -406,5 +415,72 @@ public class MainTests {
         canvas.setFileName("shadows3.png");
         canvas.saveToFile();
     }
+
+    private static void applyRefelections(){
+        Scene scene1 = new Scene();
+
+        // Add a sphere as the floor
+        Sphere floor = new Sphere();
+        floor.setTransformation(Matrix.scale(10, 0.01, 10));
+        floor.setMaterial(new Material(new Color(1,1,1),0.1, 0.9, 0.9, 200,0.5));
+        scene1.addObject(floor);
+
+        Sphere sphere4 = new Sphere();
+        Material sphere4Material = new Material(new Color(1, 0.5, 1), 0.1, 0.9, 0.9, 200,1);
+        sphere4.setTransformation(Matrix.translate(0,1.3,0));
+        sphere4.setMaterial(sphere4Material);
+        scene1.addObject(sphere4);
+
+        Sphere sphere5 = new Sphere();
+        Material material5 =  new Material(new Color(1, 0.1, 0.2), 0.2, 0.9, 5, 300);
+        sphere5.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.4,0.4,0.4)));
+
+        sphere5.setMaterial(material5);
+        scene1.addObject(sphere5);
+
+        Sphere sphere6 = new Sphere();
+        Material material6 =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        sphere6.setTransformation(Matrix.translate(1.7,0.7,0.1).multiply(Matrix.scale(0.4,0.4,0.4)));
+        sphere6.setMaterial(material6);
+        scene1.addObject(sphere6);
+
+        // Add light source
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1));
+        scene1.addLight(light);
+
+        // Set up the camera
+        Camera camera = new Camera(800, 400, 70, new Point(0, 1.5, -5), new Point(0, 1, 0), new Vector(0, 1, 0));
+
+        // Render the scene
+        RayTracer rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
+        rt.render();
+        Canvas canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect2.png");
+        canvas.saveToFile();
+
+        rt = new RayTracer(scene1, camera, new OffsetSampler(),3);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect3.png");
+        canvas.saveToFile();
+
+        rt = new RayTracer(scene1, camera, new OffsetSampler(),4);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect4.png");
+        canvas.saveToFile();
+
+        rt = new RayTracer(scene1, camera, new OffsetSampler(),9);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect9.png");
+        canvas.saveToFile();
+    }
+
+    private static void applyShapes(){
+
+    }
+
+
 }
 

@@ -68,20 +68,28 @@ public class Scene {
     }
 
     public Color shadeHit(HitInfo info) {
-        // Prüfen, ob es Lichtquellen in der Szene gibt
-        if (lights.isEmpty()) {
-            return Color.BLACK; // Keine Beleuchtung, wenn keine Lichtquellen vorhanden sind
+        // Anfangsfarbe ist schwarz (keine Beleuchtung)
+        Color finalColor = Color.BLACK;
+
+        // Iterieren über alle Lichtquellen
+        for (LightSource light : lights) {
+            // Bestimmen, ob der Punkt im Schatten dieser Lichtquelle liegt
+            boolean isShadowed = isShadowed(info, light);
+
+            // Beleuchtungsberechnung für diese Lichtquelle
+            Color lightContribution = info.getObject().getMaterial().phongLighting(
+                    (PointLightSource) light, info.getHitPoint(), info.getEyeDirection(), info.getNormal(), isShadowed);
+
+            // Aufsummieren der Beleuchtungsbeiträge
+            finalColor = finalColor.add(lightContribution);
         }
 
-        // Verwenden Sie die erste Lichtquelle für die Beleuchtungsberechnung
-        return info.getObject().getMaterial().phongLighting(
-                (PointLightSource) lights.get(0),
-                info.getHitPoint(),
-                info.getEyeDirection(),
-                info.getNormal(),
-                isShadowed(info)
-        );
+        // Addieren der reflektierten Farbe
+        finalColor = finalColor.add(reflectedColor(info));
+
+        return finalColor;
     }
+
     /**
     public Color shadeHit(HitInfo info) {
         // Anfangsfarbe ist schwarz (keine Beleuchtung)
@@ -103,6 +111,25 @@ public class Scene {
         return finalColor;
     }
     **/
+
+    public boolean isShadowed(HitInfo info, LightSource light) {
+        final double EPSILON = 0.0001; // Ein kleiner Wert zur Vermeidung von numerischen Problemen
+        if (!(light instanceof PointLightSource)) {
+            return false; // Aktuell nur Punktlichtquellen unterstützt
+        }
+        PointLightSource pointLight = (PointLightSource) light;
+
+        // Verschieben des Startpunkts entlang der Normalen
+        Point shadowOrigin = info.getHitPoint().add(info.getNormal().mult(EPSILON));
+        Vector toLight = pointLight.getPosition().sub(shadowOrigin);
+        double distanceToLight = toLight.magnitude();
+        Ray shadowRay = new Ray(shadowOrigin, toLight.normalize());
+
+        Intersections intersections = traceRay(shadowRay);
+        Intersection hit = intersections.hit();
+        return hit != null && hit.getT() < distanceToLight;
+    }
+
 
     public boolean isShadowed(Point point) {
         PointLightSource light = (PointLightSource) lights.get(0);
@@ -130,6 +157,78 @@ public class Scene {
         Intersection hit = intersections.hit();
         return hit != null && hit.getT() < distanceToLight;
     }
+
+    public Color colorAt(Ray ray) {
+        var intersections = traceRay(ray);
+        var hit = intersections.hit();
+        if (hit == null) return Color.BLACK;
+        var hitInfo = hit.prepareHitInfo(ray);
+        var color = shadeHit(hitInfo);
+        return color;
+    }
+
+    public Color reflectedColor(HitInfo hitInfo) {
+        Material material = hitInfo.getObject().getMaterial();
+        if (material.getReflective() == 0) {
+            return Color.BLACK;
+        }
+
+        // Berechnen des reflektierten Strahls
+        Vector reflectDir = hitInfo.getReflectedVector();
+        Point reflectOrigin = hitInfo.getHitPoint().add(hitInfo.getNormal().mult(0.0001)); // Kleiner Offset
+        Ray reflectRay = new Ray(reflectOrigin, reflectDir);
+
+        Color reflectedColor = colorAt(reflectRay);
+        return reflectedColor.scale(material.getReflective());
+    }
+
+    public Color colorAt(Ray ray, int depth) {
+        if (depth <= 0) {
+            return Color.BLACK; // Rekursion begrenzen
+        }
+
+        var intersections = traceRay(ray);
+        var hit = intersections.hit();
+        if (hit == null) return Color.BLACK;
+
+        var hitInfo = hit.prepareHitInfo(ray);
+        var color = shadeHit(hitInfo, depth);
+        return color;
+    }
+
+    public Color shadeHit(HitInfo info, int depth) {
+        Color finalColor = Color.BLACK;
+
+        for (LightSource light : lights) {
+            boolean isShadowed = isShadowed(info);
+
+            Color lightContribution = info.getObject().getMaterial().phongLighting(
+                    (PointLightSource) light, info.getHitPoint(), info.getEyeDirection(), info.getNormal(), isShadowed);
+
+            finalColor = finalColor.add(lightContribution);
+        }
+
+        finalColor = finalColor.add(reflectedColor(info, depth));
+        return finalColor;
+
+
+    }
+
+    public Color reflectedColor(HitInfo hitInfo, int depth) {
+        Material material = hitInfo.getObject().getMaterial();
+        if (material.getReflective() == 0) {
+            return Color.BLACK;
+        }
+
+        Vector reflectDir = hitInfo.getReflectedVector();
+        Point reflectOrigin = hitInfo.getHitPoint().add(hitInfo.getNormal().mult(0.0001));
+        Ray reflectRay = new Ray(reflectOrigin, reflectDir);
+
+        Color reflectedColor = colorAt(reflectRay, depth - 1); // Rekursionstiefe verringern
+        return reflectedColor.scale(material.getReflective());
+    }
+
+
 
 
 }

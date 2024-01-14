@@ -42,7 +42,9 @@ public record Intersection(double t, Shape shape) {
         Point hitPoint = ray.pointAt(t);
         Vector eyeDirection = ray.getVector().negate();
         Vector normal = shape.normalAt(hitPoint);
-        return new HitInfo(shape, t, hitPoint, eyeDirection, normal);
+        Vector reflectedVector = ray.getVector().reflect(normal);
+
+        return new HitInfo(shape, t, hitPoint, eyeDirection, normal, reflectedVector);
     }
 
 }

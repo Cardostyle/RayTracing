@@ -7,6 +7,8 @@ public class Material {
     private double specular;
     private int shininess;
 
+    private double reflective = 0.0;
+
     // Standardkonstruktor
     public Material() {
         this.color = new Color(1, 1, 1); // Weiß
@@ -23,6 +25,15 @@ public class Material {
         this.diffuse = diffuse;
         this.specular = specular;
         this.shininess = shininess;
+    }
+
+    public Material(Color color, double ambient, double diffuse, double specular, int shininess, double reflective) {
+        this.color = color;
+        this.ambient = ambient;
+        this.diffuse = diffuse;
+        this.specular = specular;
+        this.shininess = shininess;
+        this.reflective = reflective;
     }
 
     // Getter und Setter
@@ -64,6 +75,14 @@ public class Material {
 
     public void setShininess(int shininess) {
         this.shininess = shininess;
+    }
+
+    public double getReflective() {
+        return reflective;
+    }
+
+    public void setReflective(double reflective) {
+        this.reflective = reflective;
     }
 
     @Override

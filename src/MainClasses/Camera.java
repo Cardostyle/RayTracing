@@ -75,7 +75,7 @@ public class Camera {
     }
 
     // Methode zur Erzeugung eines Strahls für ein spezifisches Pixel
-    public Ray generateRay(int pixelX, int pixelY) {
+    public Ray generateRay(double pixelX, double pixelY) {
         // Offset vom Rand des MainClasses.Canvas zum Pixelzentrum
         double xOffset = (pixelX + 0.5) * pixelSize;
         double yOffset = (pixelY + 0.5) * pixelSize;
