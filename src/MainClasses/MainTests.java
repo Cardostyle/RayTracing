@@ -445,16 +445,22 @@ public class MainTests {
         scene1.addObject(sphere6);
 
         // Add light source
-        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1));
+        PointLightSource light = new PointLightSource(new Point(-20, 20, -20), new Color(1, 1, 1));
         scene1.addLight(light);
 
         // Set up the camera
         Camera camera = new Camera(800, 400, 70, new Point(0, 1.5, -5), new Point(0, 1, 0), new Vector(0, 1, 0));
 
         // Render the scene
-        RayTracer rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
+        RayTracer rt = new RayTracer(scene1, camera);
         rt.render();
         Canvas canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect.png");
+        canvas.saveToFile();
+
+        rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
+        rt.render();
+        canvas = rt.getRenderTarget();
         canvas.setFileName("reflect2.png");
         canvas.saveToFile();
 
@@ -475,6 +481,19 @@ public class MainTests {
         canvas = rt.getRenderTarget();
         canvas.setFileName("reflect9.png");
         canvas.saveToFile();
+
+        Cube cube= new Cube();
+        cube.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.6,0.6,0.6)));
+        Material cubeMaterial =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        cube.setMaterial(cubeMaterial);
+        scene1.addObject(cube);
+
+        rt = new RayTracer(scene1, camera, new OffsetSampler(),9);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect9WithCube.png");
+        canvas.saveToFile();
+
     }
 
     private static void applyShapes(){
@@ -484,6 +503,7 @@ public class MainTests {
         cube.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.4,0.4,0.4)));
         Material cubeMaterial =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
         cube.setMaterial(cubeMaterial);
+        scene1.addObject(cube);
 
         Sphere sphere = new Sphere();
         Material sphereMaterial = new Material(new Color(1, 0.5, 1), 0.1, 0.9, 0.9, 200,1);
@@ -497,11 +517,15 @@ public class MainTests {
         // Set up the camera
         Camera camera = new Camera(800, 400, 70, new Point(0, 1.5, -5), new Point(0, 1, 0), new Vector(0, 1, 0));
 
+        // Add light source
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1));
+        scene1.addLight(light);
+
         // Render the scene
-        RayTracer rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
+        RayTracer rt = new RayTracer(scene1, camera);
         rt.render();
         Canvas canvas = rt.getRenderTarget();
-        canvas.setFileName("reflect2.png");
+        canvas.setFileName("Formen1.png");
         canvas.saveToFile();
 
     }

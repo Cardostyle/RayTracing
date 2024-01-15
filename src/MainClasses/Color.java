@@ -12,12 +12,12 @@ public class Color {
     public static final Color BLUE = new Color(0, 0, 1);
 
     public Color(double red, double green, double blue) {
-        this.red = clamp(red);
-        this.green = clamp(green);
-        this.blue = clamp(blue);
+        this.red = (red);
+        this.green = (green);
+        this.blue = (blue);
     }
 
-    private double clamp(double value) {
+    public double clamp(double value) {
         return Math.min(1, Math.max(0, value));
     }
 
