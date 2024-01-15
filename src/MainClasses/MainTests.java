@@ -27,10 +27,10 @@ public class MainTests {
         //applySceneWithShadow();
 
         /**Reflektionen**/
-        //applyRefelections();
+        applyRefelections();
 
         /**Verschiedene Formen**/
-        applyShapes();
+        //applyShapes();
 
         long endTime = System.nanoTime(); // Endzeit in Nanosekunden
         System.out.println((endTime-startTime)/6e+10 + "Minuten");
