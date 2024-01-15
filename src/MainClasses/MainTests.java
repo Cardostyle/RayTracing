@@ -478,6 +478,31 @@ public class MainTests {
     }
 
     private static void applyShapes(){
+        var scene1 = new Scene();
+
+        Cube cube= new Cube();
+        cube.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.4,0.4,0.4)));
+        Material cubeMaterial =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        cube.setMaterial(cubeMaterial);
+
+        Sphere sphere = new Sphere();
+        Material sphereMaterial = new Material(new Color(1, 0.5, 1), 0.1, 0.9, 0.9, 200,1);
+        sphere.setTransformation(Matrix.translate(0,1.3,0));
+        sphere.setMaterial(sphereMaterial);
+        scene1.addObject(sphere);
+
+        Plane plane= new Plane();
+        scene1.addObject(plane);
+
+        // Set up the camera
+        Camera camera = new Camera(800, 400, 70, new Point(0, 1.5, -5), new Point(0, 1, 0), new Vector(0, 1, 0));
+
+        // Render the scene
+        RayTracer rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
+        rt.render();
+        Canvas canvas = rt.getRenderTarget();
+        canvas.setFileName("reflect2.png");
+        canvas.saveToFile();
 
     }
 
