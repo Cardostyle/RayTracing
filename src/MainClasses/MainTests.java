@@ -24,10 +24,10 @@ public class MainTests {
         //applyLights();
 
         /**Shadows**/
-        //applySceneWithShadow();
+        applySceneWithShadow();
 
         /**Reflektionen**/
-        applyRefelections();
+        //applyRefelections();
 
         /**Verschiedene Formen**/
         //applyShapes();
@@ -342,8 +342,7 @@ public class MainTests {
         Scene scene1 = new Scene();
 
         // Add a sphere as the floor
-        Sphere floor = new Sphere();
-        floor.setTransformation(Matrix.scale(10, 0.01, 10));
+        Plane floor = new Plane();
         scene1.addObject(floor);
 
         Sphere sphere4 = new Sphere();
@@ -366,7 +365,7 @@ public class MainTests {
         scene1.addObject(sphere6);
 
         // Add light source
-        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 1, 1));
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 0, 1));
         scene1.addLight(light);
 
         // Set up the camera
@@ -379,7 +378,7 @@ public class MainTests {
         canvas.setFileName("shadows1.png");
         canvas.saveToFile();
 
-/**
+
         //gerichtetes Licht
         Scene scene2 = new Scene();
         scene2.addObject(floor);
@@ -396,7 +395,7 @@ public class MainTests {
         canvas = rt.getRenderTarget();
         canvas.setFileName("shadows2.png");
         canvas.saveToFile();
-**/
+
 
         //Spotlights
         Scene scene3 = new Scene();
@@ -404,9 +403,9 @@ public class MainTests {
         scene3.addObject(sphere4);
         scene3.addObject(sphere5);
         scene3.addObject(sphere6);
-        SpotLightSource spotLight1= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),0.5);
-        SpotLightSource spotLight2= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),1);
-        SpotLightSource spotLight3= new SpotLightSource(new Point(-10,10,-10),new Vector(0,-1,0),30,10,new Color(1,1,1),10);
+        SpotLightSource spotLight1= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(0.9,0,0.9),0.5);
+        SpotLightSource spotLight2= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),1);
+        SpotLightSource spotLight3= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),10);
         scene3.addLight(spotLight1);
 
         rt = new RayTracer(scene3, camera);
@@ -458,6 +457,7 @@ public class MainTests {
         canvas.setFileName("reflect.png");
         canvas.saveToFile();
 
+        /*
         rt = new RayTracer(scene1, camera, new OffsetSampler(),2);
         rt.render();
         canvas = rt.getRenderTarget();
@@ -481,10 +481,11 @@ public class MainTests {
         canvas = rt.getRenderTarget();
         canvas.setFileName("reflect9.png");
         canvas.saveToFile();
+*/
 
         Cube cube= new Cube();
-        cube.setTransformation(Matrix.translate(-1.7,0.5,0).multiply(Matrix.scale(0.6,0.6,0.6)));
-        Material cubeMaterial =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300);
+        cube.setTransformation(Matrix.translate(-1.9,0.5,0).multiply(Matrix.scale(0.6,0.6,0.6)));
+        Material cubeMaterial =  new Material(new Color(0.1, 1, 0.2), 0.1, 0.9, 5, 300,1);
         cube.setMaterial(cubeMaterial);
         scene1.addObject(cube);
 

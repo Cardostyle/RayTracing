@@ -120,7 +120,7 @@ public class Material {
     }
 
 
-    public Color phongLighting(PointLightSource light, Point point, Vector eye, Vector normal, boolean inShadow) {
+    public Color phongLighting(LightSource light, Point point, Vector eye, Vector normal, boolean inShadow) {
         // Ambiente Beleuchtung
         Color ambientColor = this.color.scale(this.ambient);
 
@@ -128,9 +128,8 @@ public class Material {
         if (inShadow) {
             return ambientColor;
         }
+        Vector lightV = light.directionFromPoint(point);
 
-        // Lichtvektor (von Punkt zur Lichtquelle)
-        Vector lightV = light.getPosition().sub(point).normalize();
 
         // Diffuse Beleuchtung
         double lightDotNormal = lightV.dot(normal);

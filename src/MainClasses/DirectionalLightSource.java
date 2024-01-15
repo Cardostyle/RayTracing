@@ -8,6 +8,51 @@ public class DirectionalLightSource extends LightSource {
         this.direction = direction.normalized(); // Stellen Sie sicher, dass die Richtung normalisiert ist
     }
 
+    public DirectionalLightSource(Vector direction) {
+        super(new Color(1,1,1),1);
+        this.direction = direction;
+    }
+
+    public DirectionalLightSource(Vector direction, Color color) {
+        super(color,1);
+        this.direction = direction;
+    }
+
+    public DirectionalLightSource(Vector direction, double intensity) {
+        super(new Color(1,1,1),intensity);
+        this.direction = direction;
+    }
+
+    @Override
+    public boolean isDirectional() {
+        return true;
+    }
+
+    @Override
+    public Vector directionToPoint(Point point) {
+        return direction.normalized();
+    }
+
+    @Override
+    public Vector directionFromPoint(Point point) {
+        return direction.negate().normalized();
+    }
+
+    @Override
+    public double distanceFromPoint(Point point) {
+        return Double.POSITIVE_INFINITY;
+    }
+
+    @Override
+    public Color colorAtPoint(Point point) {
+        return color.scale(intensity);
+    }
+
+
+    public Point getPosition() {
+        throw new IllegalCallerException("Only PointLightSources and SpotLightSources can have a position");
+    }
+
     // Getter und Setter
     public Vector getDirection() {
         return direction;
@@ -17,32 +62,6 @@ public class DirectionalLightSource extends LightSource {
         this.direction = direction.normalized();
     }
 
-    @Override
-    public boolean isDirectional() {
-        return true;
-    }
 
-    @Override
-    public Vector directionToPoint(Point p) {
-        // Die Richtung zur Lichtquelle ist überall gleich
-        return direction;
-    }
 
-    @Override
-    public Vector directionFromPoint(Point p) {
-        // Die Richtung von der Lichtquelle ist die negierte Lichtrichtung
-        return direction.negate();
-    }
-
-    @Override
-    public double distanceFromPoint(Point p) {
-        // Gerichtete Lichtquellen sind unendlich weit entfernt
-        return Double.POSITIVE_INFINITY;
-    }
-
-    @Override
-    public Color colorAtPoint(Point p) {
-        // Die Farbe an jedem Punkt ist gleich
-        return getColor().scale(getIntensity());
-    }
 }

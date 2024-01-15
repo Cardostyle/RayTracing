@@ -1,12 +1,14 @@
 package MainClasses;
 
-public class SpotLightSource extends PointLightSource {
+public class SpotLightSource extends LightSource {
+    private Point position;
     private Vector direction;
     private double totalAngleDegrees;
     private double fallOffStartDegrees;
 
     public SpotLightSource(Point position, Vector direction, double totalAngleDegrees, double fallOffStartDegrees, Color color, double intensity) {
-        super(position, color, intensity);
+        super(color, intensity);
+        this.position=position;
         this.direction = direction.normalize();
         this.totalAngleDegrees = totalAngleDegrees;
         this.fallOffStartDegrees = fallOffStartDegrees;
@@ -17,30 +19,63 @@ public class SpotLightSource extends PointLightSource {
         return false;
     }
 
-/**
-    @Override
-    public Color colorAtPoint(Point p) {
-        Vector toPoint = p.sub(getPosition()).normalize();
-        double angleToDirection = Math.acos(direction.dot(toPoint)) * (180 / Math.PI);
 
-        if (angleToDirection > totalAngleDegrees / 2) {
-            return new Color(0, 0, 0); // Außerhalb des Lichtkegels
-        } else if (angleToDirection < fallOffStartDegrees / 2) {
-            return getColor().scale(getIntensity()); // Innerhalb des voll beleuchteten Bereichs
-        } else {
-            // Im FallOff-Bereich
-            double fallOffRatio = (angleToDirection - fallOffStartDegrees / 2) / (totalAngleDegrees / 2 - fallOffStartDegrees / 2);
-            double intensityFactor = Math.pow(1 - fallOffRatio, 2); // Quadratische Abschwächung für realistischeren Effekt
-            return getColor().scale(getIntensity() * intensityFactor);
-        }
-    }
-**/
     @Override
-    public Color colorAtPoint(Point p) {
-        double distance = this.distanceFromPoint(p);
-        double attenuation = 1.0 / (distance * distance); // Abschwächungsfaktor 1/d^2
-        return this.getColor().scale(this.getIntensity() * attenuation);
+    public Color colorAtPoint(Point point) {
+        // Color of surface point scaled with light intensity
+        Color baseColor = color.scale(intensity);
+
+        // direction of light -> normalized
+        Vector lightDirection = direction.normalized();
+        // direction to surface point -> normalized
+        Vector pointDirection = directionToPoint(point);
+
+        // light direction scaled with radians of cone edge -> normalized
+        Vector outerEdgeDirection = lightDirection.mult(Math.toRadians(totalAngleDegrees)).normalized();
+        // direction of start of fall-off region -> normalized
+        Vector fallOffDirection = lightDirection.mult(Math.toRadians(fallOffStartDegrees)).normalized();
+
+        // Point is in the fall-off region, apply attenuation
+        double attenuationPortion = getAttenuationPortion(pointDirection, outerEdgeDirection, fallOffDirection);
+        return baseColor.scale(Math.pow(attenuationPortion, 2));
     }
+
+    private double getAttenuationPortion(Vector pointDirection, Vector outerEdgeDirection, Vector fallOffDirection) {
+        double attenuationPortion;
+
+        double pointToEdge = Math.toDegrees(Math.acos(pointDirection.dot(outerEdgeDirection)));
+        double fallOffToEdge = Math.toDegrees(Math.acos(fallOffDirection.dot(outerEdgeDirection)));
+
+        // Adjust the calculation of attenuationPortion
+        if (pointToEdge < fallOffStartDegrees / 2) {
+            // Inside the illuminated center, no attenuation
+            attenuationPortion = 1.0;
+        } else if (pointToEdge <= totalAngleDegrees / 2) {
+            // Inside the fall-off region
+            attenuationPortion = 1.0 - ((pointToEdge - fallOffStartDegrees / 2) / (totalAngleDegrees / 2 - fallOffStartDegrees / 2));
+        } else {
+            // Outside the total angle, completely attenuated
+            attenuationPortion = 0.0;
+        }
+        return attenuationPortion;
+    }
+
+
+    @Override
+    public Vector directionFromPoint(Point point) {
+        return position.sub(point).normalized();
+    }
+
+    @Override
+    public Vector directionToPoint(Point point) {
+        return point.sub(position).normalized();
+    }
+
+    @Override
+    public double distanceFromPoint(Point point) {
+        return directionFromPoint(point).magnitude();
+    }
+
 
     // Getter und Setter für die neuen Felder
     public Vector getDirection() {
@@ -66,4 +101,13 @@ public class SpotLightSource extends PointLightSource {
     public void setFallOffStartDegrees(double fallOffStartDegrees) {
         this.fallOffStartDegrees = fallOffStartDegrees;
     }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
 }

@@ -145,11 +145,11 @@ public class Scene {
 
     public boolean isShadowed(HitInfo info) {
         final double EPSILON = 0.0001; // Ein kleiner Wert zur Vermeidung von numerischen Problemen
-        PointLightSource light = (PointLightSource) lights.get(0);
+        LightSource light =  lights.get(0);
 
         // Verschieben des Startpunkts entlang der Normalen
         Point shadowOrigin = info.getHitPoint().add(info.getNormal().mult(EPSILON));
-        Vector toLight = light.getPosition().sub(shadowOrigin);
+        Vector toLight = light.directionFromPoint(info.getHitPoint());
         double distanceToLight = toLight.magnitude();
         Ray shadowRay = new Ray(shadowOrigin, toLight.normalize());
 
@@ -203,7 +203,7 @@ public class Scene {
             boolean isShadowed = isShadowed(info);
 
             Color lightContribution = info.getObject().getMaterial().phongLighting(
-                    (PointLightSource) light, info.getHitPoint(), info.getEyeDirection(), info.getNormal(), isShadowed);
+                     light, info.getHitPoint(), info.getEyeDirection(), info.getNormal(), isShadowed);
 
             finalColor = finalColor.add(lightContribution);
         }
