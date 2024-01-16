@@ -1,5 +1,10 @@
 package MainClasses;
 
+import Lights.*;
+import Maths.*;
+import Shapes.*;
+import Sampler.*;
+
 public class MainTests {
 
     public static void main(String[] args) {
@@ -403,7 +408,7 @@ public class MainTests {
         scene3.addObject(sphere4);
         scene3.addObject(sphere5);
         scene3.addObject(sphere6);
-        SpotLightSource spotLight1= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(0.9,0,0.9),0.5);
+        SpotLightSource spotLight1= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(0.9,0.5,0.9),0.5);
         SpotLightSource spotLight2= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),1);
         SpotLightSource spotLight3= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),10);
         scene3.addLight(spotLight1);

@@ -1,5 +1,11 @@
 package MainClasses;
 
+import Lights.Color;
+import Maths.Point;
+import Maths.Ray;
+import Sampler.Sampler;
+import Sampler.NoSampler;
+
 public class RayTracer {
     private Scene scene;
     private Camera camera;

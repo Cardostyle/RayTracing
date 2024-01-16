@@ -1,5 +1,10 @@
 package MainClasses;
 
+import Maths.Matrix;
+import Maths.Point;
+import Maths.Ray;
+import Maths.Vector;
+
 public class Camera {
     private int width;
     private int height;

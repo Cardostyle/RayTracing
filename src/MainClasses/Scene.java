@@ -1,5 +1,13 @@
 package MainClasses;
 
+import Lights.Color;
+import Lights.LightSource;
+import Lights.Material;
+import Lights.PointLightSource;
+import Maths.*;
+import Shapes.Shape;
+import Shapes.Sphere;
+
 import java.util.ArrayList;
 import java.util.List;
 
