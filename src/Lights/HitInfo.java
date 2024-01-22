@@ -1,4 +1,4 @@
-package Maths;
+package Lights;
 
 import Maths.Point;
 import Maths.Vector;

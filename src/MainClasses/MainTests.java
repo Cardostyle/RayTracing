@@ -370,7 +370,7 @@ public class MainTests {
         scene1.addObject(sphere6);
 
         // Add light source
-        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 0, 1));
+        PointLightSource light = new PointLightSource(new Point(-10, 10, -10), new Color(1, 0, 1), 90);
         scene1.addLight(light);
 
         // Set up the camera
@@ -408,7 +408,7 @@ public class MainTests {
         scene3.addObject(sphere4);
         scene3.addObject(sphere5);
         scene3.addObject(sphere6);
-        SpotLightSource spotLight1= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(0.9,0.5,0.9),0.5);
+        SpotLightSource spotLight1= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),50,10,new Color(0.9,0.5,0.9),1);
         SpotLightSource spotLight2= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),1);
         SpotLightSource spotLight3= new SpotLightSource(new Point(0,10,0),new Vector(0,-1,0),30,10,new Color(1,1,1),10);
         scene3.addLight(spotLight1);
@@ -418,6 +418,21 @@ public class MainTests {
         canvas = rt.getRenderTarget();
         canvas.setFileName("shadows3.png");
         canvas.saveToFile();
+
+        Scene scene4 = new Scene();
+        scene4.addObject(floor);
+        scene4.addObject(sphere4);
+        scene4.addObject(sphere5);
+        scene4.addObject(sphere6);
+        scene4.addLight(spotLight1);
+        scene4.addLight(directedLight1);
+
+        rt = new RayTracer(scene4, camera);
+        rt.render();
+        canvas = rt.getRenderTarget();
+        canvas.setFileName("shadows4.png");
+        canvas.saveToFile();
+
     }
 
     private static void applyRefelections(){
@@ -480,13 +495,13 @@ public class MainTests {
         canvas = rt.getRenderTarget();
         canvas.setFileName("reflect4.png");
         canvas.saveToFile();
-
+*/
         rt = new RayTracer(scene1, camera, new OffsetSampler(),9);
         rt.render();
         canvas = rt.getRenderTarget();
         canvas.setFileName("reflect9.png");
         canvas.saveToFile();
-*/
+
 
         Cube cube= new Cube();
         cube.setTransformation(Matrix.translate(-1.9,0.5,0).multiply(Matrix.scale(0.6,0.6,0.6)));

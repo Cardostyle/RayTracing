@@ -1,5 +1,6 @@
 package Maths;
 
+import Lights.HitInfo;
 import Shapes.Shape;
 
 import java.util.Objects;

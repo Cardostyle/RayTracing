@@ -136,7 +136,7 @@ public class Material {
 
         // Diffuse Beleuchtung
         double lightDotNormal = lightV.dot(normal);
-        Color diffuseColor = light.getColor().scale(this.diffuse).scale(Math.max(lightDotNormal, 0));
+        Color diffuseColor = light.colorAtPoint(point).scale(this.diffuse).scale(Math.max(lightDotNormal, 0));
 
         // Reflektierter Vektor
         Vector reflectV = lightV.negate().reflect(normal);
@@ -146,7 +146,7 @@ public class Material {
         Color specularColor = new Color(0, 0, 0);
         if (reflectDotEye > 0) {
             double factor = Math.pow(reflectDotEye, this.shininess);
-            specularColor = light.getColor().scale(this.specular).scale(factor);
+            specularColor = light.colorAtPoint(point).scale(this.specular).scale(factor);
         }
 
         // Gesamte Beleuchtung

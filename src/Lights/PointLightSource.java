@@ -7,7 +7,7 @@ public class PointLightSource extends LightSource {
     private Point position;
 
     public PointLightSource(Point position, Color color) {
-        super(color, 1); // Standardintensität ist 1
+        super(color, 50); // Standardintensität ist 1
         this.position = position;
     }
 
@@ -71,9 +71,10 @@ public class PointLightSource extends LightSource {
 
     @Override
     public Color colorAtPoint(Point p) {
+//        return this.getColor().scale(intensity);
         double distance = this.distanceFromPoint(p);
         double attenuation = 1.0 / (distance * distance); // Abschwächungsfaktor 1/d^2
-        return this.getColor().scale(this.getIntensity() * attenuation);
+        return this.getColor().scale(intensity * attenuation);
     }
 
 }

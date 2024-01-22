@@ -1,9 +1,6 @@
 package MainClasses;
 
-import Lights.Color;
-import Lights.LightSource;
-import Lights.Material;
-import Lights.PointLightSource;
+import Lights.*;
 import Maths.*;
 import Shapes.Shape;
 import Shapes.Sphere;
